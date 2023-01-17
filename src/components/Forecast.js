@@ -1,0 +1,64 @@
+import React from 'react';
+import Container from 'react-bootstrap/Container';
+
+const Forecast = ({ forecast }) => {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        backdropFilter: 'blur(2px)',
+        backgroundImage:
+          'linear-gradient(rgba(55,55,55,0.3),rgba(55,55,55,0.3))',
+        width: '100%',
+        zIndex: '-1',
+      }}
+    >
+      <Container fluid='md'>
+        <div className='forecast-row d-flex gap-2 overflow-auto text-white'>
+          {forecast.list.map((item, idx) => {
+            return (
+              <div
+                key={idx}
+                className='forecast-item d-inline-block text-center'
+              >
+                <h4 className='m-0'>
+                  {new Date(item.dt * 1000).getHours()}:00
+                </h4>
+                <img
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                  }}
+                  src={`./img/${item.weather[0].icon}.svg`}
+                />
+                <p className='text-capitalize'>{item.weather[0].main}</p>
+                <div>
+                  <p className='fs-1 m-0 position-relative'>
+                    {Math.round(item.main.temp)}
+                    <span
+                      style={{
+                        position: 'absolute',
+                        fontSize: '20px',
+                        fontWeight: '500',
+                        top: '0',
+                        right: '24px',
+                      }}
+                    >
+                      o
+                    </span>
+                  </p>
+                  <p className='m-0'>
+                    {Math.round(item.main.temp_max)}&deg; /
+                    {Math.round(item.main.temp_min)}&deg;
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+export default Forecast;

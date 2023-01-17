@@ -1,13 +1,246 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #3275cc;
+}
+
+.css-13cymwt-control,
+.css-t3ipsp-control {
+  border-radius: 50px !important;
+}
+.css-t3ipsp-control {
+  border: none !important;
+  box-shadow: 0 0 0 2px #3275cc !important;
+}
+.css-1nmdiq5-menu {
+  border-radius: 25px !important;
+  overflow: hidden;
+}
+
+.App {
+  height: 100vh;
+}
+
+.weather-city {
+  font-size: 40px;
+}
+
+.refresh{
+  width: 40px;
+  height: 40px;
+  margin: 0 70px 8px 0;
+}
+
+
+.refresh:hover {
+  cursor: pointer;
+}
+
+.weather-icon {
+  width: 150px;
+  height: 150px;
+}
+
+.weather-temp {
+  font-size: 150px;
+  line-height: 0.8;
+}
+
+.weather-stepen {
+  position: absolute;
+  font-size: 65px;
+  font-weight: 600;
+  top: 0;
+  right: -50px;
+  line-height: 0.5;
+}
+.weather-min-max {
+  font-size: 24px;
+}
+
+.weather-detail-text p:nth-child(2) {
+  font-size: 24px;
+}
+
+.forecast-item {
+  min-width: 155px;
+  padding: 16px;
+}
+
+@media (max-width: 991px) {
+  .weather-city {
+    font-size: 24px;
+  }
+  .refresh{
+    margin: 0 20px 8px 0;
+  }
+  .date {
+    font-size: 14px;
+  }
+
+  .weather-icon {
+    width: 80px;
+    height: 80px;
+  }
+  .weather-description {
+    font-size: 14px;
+  }
+
+  .weather-temp {
+    font-size: 70px;
+  }
+  .weather-stepen {
+    position: absolute;
+    font-size: 35px;
+    font-weight: 500;
+    top: 0;
+    right: -20px;
+    line-height: 0.5;
+  }
+  .weather-min-max {
+    font-size: 20px;
+  }
+  .weather-detail-text p:nth-child(2) {
+    font-size: 20px;
+  }
+  .forecast-item {
+    min-width: auto;
+    padding: 16px 0 16px 0;
+  }
+}
+
+/* mali spiner */
+.spinner {
+  width: 25px;
+  height: 25px;
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+}
+@media (max-width: 480px) {
+  .spinner {
+    width: 20px;
+    height: 20px;
+    padding-top: 5px;
+  }
+}
+
+.spinner .dot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.spinner .dot::after {
+  content: '';
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgb(200, 200, 200);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner .dot {
+  animation: spin 2s infinite;
+}
+
+.spinner .dot:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.spinner .dot:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.spinner .dot:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+.spinner .dot:nth-child(5) {
+  animation-delay: 400ms;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  display: inline-block;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+.loader .dot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.loader .dot::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: rgb(200, 200, 200);
+}
+
+@keyframes spinloader {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader .dot {
+  animation: spinloader 2s infinite;
+}
+
+.loader .dot:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.loader .dot:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.loader .dot:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+.loader .dot:nth-child(5) {
+  animation-delay: 400ms;
+}
+
+.forecast-row::-webkit-scrollbar {
+  height: 10px;
+  background-color: transparent;
+}
+.forecast-row::-webkit-scrollbar-track {
+  margin-inline: 20px;
+}
+
+.forecast-row::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+}
+.forecast-row::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+.forecast-row {
+  -webkit-overflow-scrolling: touch;
 }
