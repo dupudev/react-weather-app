@@ -53,7 +53,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
       <div className=' d-flex flex-column flex-md-row align-items-start justify-content-between gap-5 '>
         <div className='weather-info pt-4'>
           <div className='d-flex align-items-center justify-content-start'>
-            <div className='d-inline-block'>
+            <div className='d-inline-block text-center'>
               <img
                 className='weather-icon'
                 src={`./img/${weatherCity.weather[0].icon}.svg`}
