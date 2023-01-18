@@ -131,13 +131,14 @@ const App = () => {
       .then((resJson) => setForecast(resJson))
       .catch((err) => console.log(err));
   };
+
   return (
     <div className='App'>
       <div
         style={{
           position: 'fixed',
           width: '100%',
-          height: `${window.screen.height}`,
+          height: '100%',
           zIndex: '-1',
           backgroundImage:
             'linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3))',
@@ -148,7 +149,7 @@ const App = () => {
         style={{
           position: 'fixed',
           width: '100%',
-          height: `${window.screen.height}`,
+          height: '110%',
           zIndex: '-3',
           objectFit: 'cover',
           transition: 'all 0.5s ease-in-out',
@@ -162,7 +163,7 @@ const App = () => {
         style={{
           position: 'fixed',
           width: '100%',
-          height: `${window.screen.height}`,
+          height: '110%',
           zIndex: '-2',
           objectFit: 'cover',
           transition: 'all 0.3s ease-in-out',
