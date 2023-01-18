@@ -10,7 +10,7 @@ body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #3275cc;
+  background-color: #000000;
 }
 
 .css-13cymwt-control,
@@ -22,24 +22,24 @@ body {
   box-shadow: 0 0 0 2px #3275cc !important;
 }
 .css-1nmdiq5-menu {
-  border-radius: 25px !important;
+  border-radius: 15px !important;
   overflow: hidden;
 }
 
 .App {
   height: 100vh;
+  position: relative;
 }
 
 .weather-city {
   font-size: 40px;
 }
 
-.refresh{
+.refresh {
   width: 40px;
   height: 40px;
   margin: 0 70px 8px 0;
 }
-
 
 .refresh:hover {
   cursor: pointer;
@@ -71,6 +71,10 @@ body {
   font-size: 24px;
 }
 
+.forecast-row {
+  cursor: grab;
+}
+
 .forecast-item {
   min-width: 155px;
   padding: 16px;
@@ -80,7 +84,7 @@ body {
   .weather-city {
     font-size: 24px;
   }
-  .refresh{
+  .refresh {
     margin: 0 20px 8px 0;
   }
   .date {

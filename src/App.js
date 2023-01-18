@@ -149,7 +149,7 @@ const App = () => {
         style={{
           position: 'fixed',
           width: '100%',
-          height: '100%',
+          height: '110%',
           zIndex: '-3',
           objectFit: 'cover',
           transition: 'all 0.5s ease-in-out',
@@ -163,7 +163,7 @@ const App = () => {
         style={{
           position: 'fixed',
           width: '100%',
-          height: '100%',
+          height: '110%',
           zIndex: '-2',
           objectFit: 'cover',
           transition: 'all 0.3s ease-in-out',

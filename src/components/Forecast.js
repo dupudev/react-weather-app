@@ -1,26 +1,33 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 
+import { useRef } from 'react';
+import { useDraggable } from 'react-use-draggable-scroll';
+
 const Forecast = ({ forecast }) => {
+  const forecastRow = useRef();
+
+  const { events } = useDraggable(forecastRow);
+
   return (
     <div
+      {...events}
       style={{
-        position: 'relative',
         backdropFilter: 'blur(2px)',
         backgroundImage:
           'linear-gradient(rgba(55,55,55,0.3),rgba(55,55,55,0.3))',
         width: '100%',
-        zIndex: '-1',
+        marginTop: '4px',
       }}
     >
       <Container fluid='md'>
-        <div className='forecast-row d-flex gap-2 overflow-auto text-white'>
+        <div
+          ref={forecastRow}
+          className='forecast-row d-flex gap-2 overflow-auto text-white'
+        >
           {forecast.list.map((item, idx) => {
             return (
-              <div
-                key={idx}
-                className='forecast-item d-inline-block text-center'
-              >
+              <div key={idx} className='forecast-item text-center'>
                 <h4 className='m-0'>
                   {new Date(item.dt * 1000).getHours()}:00
                 </h4>

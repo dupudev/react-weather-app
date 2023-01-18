@@ -2,7 +2,6 @@ import React from 'react';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 import { TbRefresh } from 'react-icons/tb';
 
 const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
@@ -33,7 +32,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
               display: 'inline-block',
             }}
           >
-            {weatherCity.name}, {weatherCity.sys.country}
+            {city.name}, {weatherCity.sys.country}
           </h2>
           {!imageLoaded && (
             <div className='spinner'>
@@ -90,7 +89,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                   width: '50px',
                   height: '50px',
                 }}
-                src={`./img/thermometer.svg`}
+                src='./img/thermometer.svg'
               />
             </div>
             <div className='weather-detail-text mt-2'>
@@ -113,7 +112,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                   width: '50px',
                   height: '50px',
                 }}
-                src={`./img/humidity.svg`}
+                src='./img/humidity.svg'
               />
             </div>
             <div className='weather-detail-text mt-2'>
@@ -136,7 +135,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                   width: '50px',
                   height: '50px',
                 }}
-                src={`./img/barometer.svg`}
+                src='./img/barometer.svg'
               />
             </div>
             <div className='weather-detail-text mt-2'>
@@ -159,7 +158,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                   width: '50px',
                   height: '50px',
                 }}
-                src={`./img/windsock.svg`}
+                src='./img/windsock.svg'
               />
             </div>
             <div className='weather-detail-text mt-2'>
@@ -182,7 +181,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                   width: '50px',
                   height: '50px',
                 }}
-                src={`./img/cloudy.svg`}
+                src='./img/cloudy.svg'
               />
             </div>
             <div className='weather-detail-text mt-2'>
