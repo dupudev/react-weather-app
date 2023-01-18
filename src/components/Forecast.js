@@ -12,10 +12,8 @@ const Forecast = ({ forecast }) => {
   return (
     <div
       {...events}
+      className='forecast'
       style={{
-        backdropFilter: 'blur(2px)',
-        backgroundImage:
-          'linear-gradient(rgba(55,55,55,0.3),rgba(55,55,55,0.3))',
         width: '100%',
         marginTop: '4px',
       }}

@@ -1,31 +1,34 @@
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Search from './components/Search';
 import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
 
+// API Keys
 const key1 = '56991f9c14msh000d620068e4c37p10e847jsn3bf59dbd255c';
 const key2 = '321f8ff9e0msh7c5090d3b1fd871p1054ebjsn2bdefb61939b';
+const key3 = '8d06f4bde1msh3c15db9f2553d5bp10e026jsn75a446530be1';
 
 const App = () => {
+  const app = useRef();
+  const blur = useRef();
+
   const [city, setCity] = useState(null);
-  const [cityImage, setCityImage] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(true);
-
   const [weatherCity, setWeatherCity] = useState(null);
-
-  const [initialCityImage, setInitialCityImage] = useState(null);
-  const [initialCityImageLoaded, setInitialCityImageLoaded] = useState(false);
-
-  const [locationRejected, setlocationRejected] = useState(false);
-
+  const [locationRejected, setLocationRejected] = useState(false);
   const [forecast, setForecast] = useState(null);
+  const [backgroundLoaded, setBackgroundLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   ///Geo location accepted _______________________________________________________
 
   const geolocationAccepted = (position) => {
+    const backgroundImage = new Image();
+
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af
     `
@@ -43,23 +46,30 @@ const App = () => {
         });
 
         fetch(
-          `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${resJson.name}`,
+          `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${resJson.name},%20${resJson.sys.country}`,
           {
             method: 'GET',
             headers: {
-              'X-RapidAPI-Key': key2,
+              'X-RapidAPI-Key': key3,
               'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com',
             },
           }
         )
           .then((response) => response.json())
           .then((resJson) => {
-            setInitialCityImage(
+            const backgroundUrl =
               resJson.value[Math.floor(Math.random() * resJson.value.length)]
-                .contentUrl
-            );
+                .contentUrl;
+            backgroundImage.src = backgroundUrl;
+            backgroundImage.onload = () => {
+              app.current.style.backgroundImage = `linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3)), url(${backgroundUrl})`;
+              setBackgroundLoaded(true);
+            };
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            setError(true);
+            console.log(err);
+          });
       })
       .catch((err) => console.log(err));
 
@@ -73,8 +83,8 @@ const App = () => {
 
   ///Geo location rejected _______________________________________________________
 
-  const geolocationRejected = (position) => {
-    setlocationRejected(true);
+  const geolocationRejected = () => {
+    setLocationRejected(true);
   };
   ///___________________________________________________________________
 
@@ -94,98 +104,109 @@ const App = () => {
   }, []);
 
   const selectCity = (cityData) => {
-    setInitialCityImageLoaded(true);
+    setLoading(true);
     setImageLoaded(false);
+
+    if (!locationRejected) {
+      blur.current.style.backdropFilter = 'blur(5px)';
+    }
+
+    const backgroundImage = new Image();
 
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${cityData.value.latitude}&lon=${cityData.value.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af
     `
     )
       .then((response) => response.json())
-      .then((resJson) => setWeatherCity(resJson))
-      .catch((err) => console.log(err));
+      .then((resJson) => {
+        setWeatherCity(resJson);
 
-    fetch(
-      `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${cityData.name}`,
-      {
-        method: 'GET',
-        headers: {
-          'X-RapidAPI-Key': key2,
-          'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com',
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((resJson) =>
-        setCityImage(
-          resJson.value[Math.floor(Math.random() * resJson.value.length)]
-            .contentUrl
+        fetch(
+          `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${cityData.name}`,
+          {
+            method: 'GET',
+            headers: {
+              'X-RapidAPI-Key': key3,
+              'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com',
+            },
+          }
         )
-      )
-      .catch((err) => console.error(err));
+          .then((response) => response.json())
+          .then((resJson) => {
+            const backgroundUrl =
+              resJson.value[Math.floor(Math.random() * resJson.value.length)]
+                .contentUrl;
+            backgroundImage.src = backgroundUrl;
+            backgroundImage.onload = () => {
+              app.current.style.backgroundImage = `linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3)), url(${backgroundUrl})`;
+              blur.current.style.backdropFilter = 'blur(0)';
+              setBackgroundLoaded(true);
+              setLocationRejected(false);
+              setImageLoaded(true);
+              setLoading(false);
+            };
+          })
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.log(err));
 
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?cnt=8&units=metric&lat=${cityData.value.latitude}&lon=${cityData.value.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af`
     )
       .then((response) => response.json())
       .then((resJson) => setForecast(resJson))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError(true);
+        console.log(err);
+      });
   };
 
   return (
-    <div className='App'>
+    <div
+      ref={app}
+      style={{
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+      className='App'
+    >
       <div
+        ref={blur}
         style={{
           position: 'fixed',
           width: '100%',
           height: '100%',
-          zIndex: '-1',
-          backgroundImage:
-            'linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3))',
+          zIndex: '1',
+          transition: '0.2s ease-in-out',
         }}
       ></div>
 
-      <img
+      <div
         style={{
-          position: 'fixed',
-          width: '100%',
-          height: '110%',
-          zIndex: '-3',
-          objectFit: 'cover',
-          transition: 'all 0.5s ease-in-out',
-          opacity: initialCityImageLoaded ? '1' : '0',
+          position: 'relative',
+          zIndex: '2',
         }}
-        src={initialCityImage}
-        onLoad={() => setInitialCityImageLoaded(true)}
-      />
-
-      <img
-        style={{
-          position: 'fixed',
-          width: '100%',
-          height: '110%',
-          zIndex: '-2',
-          objectFit: 'cover',
-          transition: 'all 0.3s ease-in-out',
-          filter: imageLoaded ? 'blur(0)' : 'blur(10px)',
-        }}
-        src={cityImage}
-        onLoad={() => setImageLoaded(true)}
-      />
-
-      <Container fluid='md' className='py-3'>
+      >
         <Search city={city} setCity={setCity} selectCity={selectCity} />
-        {weatherCity && forecast && initialCityImageLoaded ? (
-          <CurrentWeather
-            city={city}
-            weatherCity={weatherCity}
-            imageLoaded={imageLoaded}
-            refreshWeather={selectCity}
-          />
+        {!locationRejected && backgroundLoaded ? (
+          <>
+            {weatherCity && forecast ? (
+              <>
+                <CurrentWeather
+                  city={city}
+                  weatherCity={weatherCity}
+                  imageLoaded={imageLoaded}
+                  refreshWeather={selectCity}
+                  error={error}
+                />
+                <Forecast forecast={forecast}></Forecast>
+              </>
+            ) : null}
+          </>
         ) : locationRejected ? (
           <h5 className='text-center text-white mt-5 pt-5'>
-            Allow Weather App to access your location, or enter location
-            manually.
+            Allow location access, or enter location manually.
           </h5>
         ) : (
           <div className='loader'>
@@ -196,11 +217,14 @@ const App = () => {
             <div className='dot'></div>
           </div>
         )}
-      </Container>
-      {weatherCity && forecast && initialCityImageLoaded ? (
-        <Forecast forecast={forecast}></Forecast>
-      ) : locationRejected ? null : (
-        <div className='loader'>
+      </div>
+      {loading && (
+        <div
+          style={{
+            zIndex: '-1',
+          }}
+          className='loader'
+        >
           <div className='dot'></div>
           <div className='dot'></div>
           <div className='dot'></div>
@@ -213,7 +237,3 @@ const App = () => {
 };
 
 export default App;
-
-// style={{
-//   backgroundImage: `linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3)), url(${cityImage})`,
-// }}

@@ -27,7 +27,7 @@ body {
 }
 
 .App {
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
 }
 
@@ -38,7 +38,7 @@ body {
 .refresh {
   width: 40px;
   height: 40px;
-  margin: 0 70px 8px 0;
+  margin-right: 70px;
 }
 
 .refresh:hover {
@@ -71,21 +71,37 @@ body {
   font-size: 24px;
 }
 
-.forecast-row {
-  cursor: grab;
+.forecast {
+  backdrop-filter: blur(2px);
+  background-image: linear-gradient(
+    rgba(55, 55, 55, 0.3),
+    rgba(55, 55, 55, 0.3)
+  );
+  /* transform: translateY(50px); */
 }
 
 .forecast-item {
   min-width: 155px;
   padding: 16px;
+  animation: forecast 2s ease 1s;
+  /* visibility: hidden; */
 }
+/* @keyframes forecast {
+  0% {
+    transform: translateY(280px);
+  }
+  100% {
+    transform: translateY(0);
+    visibility: visible;
+  }
+} */
 
 @media (max-width: 991px) {
   .weather-city {
     font-size: 24px;
   }
   .refresh {
-    margin: 0 20px 8px 0;
+    margin-right: 20px;
   }
   .date {
     font-size: 14px;
@@ -123,7 +139,8 @@ body {
 }
 
 /* mali spiner */
-.spinner {
+.spinner,
+.errorIcon {
   width: 25px;
   height: 25px;
   position: relative;
@@ -135,6 +152,10 @@ body {
     width: 20px;
     height: 20px;
     padding-top: 5px;
+  }
+  .errorIcon {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -232,6 +253,7 @@ body {
 
 .forecast-row::-webkit-scrollbar {
   height: 10px;
+  width: 0;
   background-color: transparent;
 }
 .forecast-row::-webkit-scrollbar-track {
@@ -244,7 +266,4 @@ body {
 }
 .forecast-row::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.6);
-}
-.forecast-row {
-  -webkit-overflow-scrolling: touch;
 }
