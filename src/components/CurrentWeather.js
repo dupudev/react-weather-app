@@ -5,15 +5,8 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
 import { TbRefresh } from 'react-icons/tb';
-import { BiErrorCircle } from 'react-icons/bi';
 
-const CurrentWeather = ({
-  city,
-  weatherCity,
-  imageLoaded,
-  refreshWeather,
-  error,
-}) => {
+const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
   const month = [
     'January',
     'February',
@@ -35,14 +28,14 @@ const CurrentWeather = ({
     <Container fluid='md' className='pb-3 '>
       <div
         style={{ color: 'white' }}
-        className='current-weather mt-5 mb-4 pb-4'
+        className='current-weather overflow-hidden mt-5 mb-4 pb-4'
       >
         <div className='d-flex align-items-center justify-content-between'>
           <div className='d-flex align-items-center'>
             <h2 className='weather-city d-inline-block m-0'>
               {city.name}, {weatherCity.sys.country}
             </h2>
-            {!imageLoaded ? (
+            {!imageLoaded && (
               <div className='spinner'>
                 <div className='dot'></div>
                 <div className='dot'></div>
@@ -50,19 +43,12 @@ const CurrentWeather = ({
                 <div className='dot'></div>
                 <div className='dot'></div>
               </div>
-            ) : (
-              error && (
-                <div className='d-flex align-items-center'>
-                  <BiErrorCircle className='errorIcon text-danger' />
-                  <p className='mb-0 ms-1 text-danger'>Reload</p>
-                </div>
-              )
             )}
           </div>
 
           <TbRefresh className='refresh' onClick={() => refreshWeather(city)} />
         </div>
-        <p className='date mb-0'>
+        <p className='weather-date mb-0'>
           {month[date.getMonth()]} {date.getDate()}, {date.getFullYear()}
         </p>
         <div className=' d-flex flex-column flex-md-row align-items-start justify-content-between gap-5 '>

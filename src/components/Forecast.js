@@ -12,10 +12,10 @@ const Forecast = ({ forecast }) => {
   return (
     <div
       {...events}
-      className='forecast'
+      className='forecast overflow-hidden'
       style={{
         width: '100%',
-        marginTop: '4px',
+        marginTop: '12px',
       }}
     >
       <Container fluid='md'>

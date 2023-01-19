@@ -22,9 +22,37 @@ const App = () => {
   const [forecast, setForecast] = useState(null);
   const [backgroundLoaded, setBackgroundLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  ///Geo location accepted _______________________________________________________
+  ///--------------------------------------------
+  ///-----/  Load weather by geolocation   /-----
+  ///--------------------------------------------
+
+  useEffect(() => {
+    getGeoLocation();
+  }, []);
+
+  const getGeoLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      geolocationAccepted,
+      geolocationRejected,
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+      }
+    );
+  };
+
+  //!--------------------------------------------
+  //!------/   If geolocation is rejected  /-----
+  //!--------------------------------------------
+
+  const geolocationRejected = () => {
+    setLocationRejected(true);
+  };
+
+  //*--------------------------------------------
+  //*-----/   If geolocation is accepted   /-----
+  //*--------------------------------------------
 
   const geolocationAccepted = (position) => {
     const backgroundImage = new Image();
@@ -46,7 +74,7 @@ const App = () => {
         });
 
         fetch(
-          `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${resJson.name},%20${resJson.sys.country}`,
+          `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${resJson.name}`,
           {
             method: 'GET',
             headers: {
@@ -64,44 +92,26 @@ const App = () => {
             backgroundImage.onload = () => {
               app.current.style.backgroundImage = `linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3)), url(${backgroundUrl})`;
               setBackgroundLoaded(true);
+              setImageLoaded(true);
+
+              fetch(
+                `https://api.openweathermap.org/data/2.5/forecast?cnt=8&units=metric&lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af`
+              )
+                .then((response) => response.json())
+                .then((resJson) => {
+                  setForecast(resJson);
+                })
+                .catch((err) => console.log(err));
             };
           })
-          .catch((err) => {
-            setError(true);
-            console.log(err);
-          });
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-
-    fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?cnt=8&units=metric&lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af`
-    )
-      .then((response) => response.json())
-      .then((resJson) => setForecast(resJson))
-      .catch((err) => console.log(err));
   };
 
-  ///Geo location rejected _______________________________________________________
-
-  const geolocationRejected = () => {
-    setLocationRejected(true);
-  };
-  ///___________________________________________________________________
-
-  const getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      geolocationAccepted,
-      geolocationRejected,
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-      }
-    );
-  };
-
-  useEffect(() => {
-    getGeoLocation();
-  }, []);
+  ///--------------------------------------------
+  ///-------/   Load weather by search   /-------
+  ///--------------------------------------------
 
   const selectCity = (cityData) => {
     setLoading(true);
@@ -144,23 +154,22 @@ const App = () => {
               setLocationRejected(false);
               setImageLoaded(true);
               setLoading(false);
+
+              fetch(
+                `https://api.openweathermap.org/data/2.5/forecast?cnt=8&units=metric&lat=${cityData.value.latitude}&lon=${cityData.value.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af`
+              )
+                .then((response) => response.json())
+                .then((resJson) => {
+                  setForecast(resJson);
+                })
+                .catch((err) => console.log(err));
             };
           })
-          .catch((err) => console.error(err));
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
-
-    fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?cnt=8&units=metric&lat=${cityData.value.latitude}&lon=${cityData.value.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af`
-    )
-      .then((response) => response.json())
-      .then((resJson) => setForecast(resJson))
-      .catch((err) => {
-        setError(true);
-        console.log(err);
-      });
   };
-
+  console.log(loading);
   return (
     <div
       ref={app}
@@ -198,23 +207,35 @@ const App = () => {
                   weatherCity={weatherCity}
                   imageLoaded={imageLoaded}
                   refreshWeather={selectCity}
-                  error={error}
+                  backgroundLoaded={backgroundLoaded}
                 />
                 <Forecast forecast={forecast}></Forecast>
               </>
             ) : null}
           </>
-        ) : locationRejected ? (
-          <h5 className='text-center text-white mt-5 pt-5'>
+        ) : locationRejected && !loading ? (
+          <p className='loading-text text-center mt-5 pt-5'>
             Allow location access, or enter location manually.
-          </h5>
+          </p>
         ) : (
-          <div className='loader'>
-            <div className='dot'></div>
-            <div className='dot'></div>
-            <div className='dot'></div>
-            <div className='dot'></div>
-            <div className='dot'></div>
+          <div className='loader-container'>
+            {city ? (
+              <p className='loading-text'>
+                Loading Weather for <br /> {city.label}
+              </p>
+            ) : (
+              <p className='loading-text'>
+                Getting location... <br />
+                &nbsp;
+              </p>
+            )}
+            <div className='loader'>
+              <div className='dot'></div>
+              <div className='dot'></div>
+              <div className='dot'></div>
+              <div className='dot'></div>
+              <div className='dot'></div>
+            </div>
           </div>
         )}
       </div>
@@ -223,13 +244,22 @@ const App = () => {
           style={{
             zIndex: '-1',
           }}
-          className='loader'
+          className='loader-container'
         >
-          <div className='dot'></div>
-          <div className='dot'></div>
-          <div className='dot'></div>
-          <div className='dot'></div>
-          <div className='dot'></div>
+          {city ? (
+            <p className='loading-text'>
+              Loading Weather for <br /> {city.label}
+            </p>
+          ) : (
+            <p className='loading-text'> Getting location...</p>
+          )}
+          <div className='loader'>
+            <div className='dot'></div>
+            <div className='dot'></div>
+            <div className='dot'></div>
+            <div className='dot'></div>
+            <div className='dot'></div>
+          </div>
         </div>
       )}
     </div>
