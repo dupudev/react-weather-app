@@ -5,8 +5,8 @@ import Container from 'react-bootstrap/Container';
 import { AsyncPaginate } from 'react-select-async-paginate';
 
 // API Keys
-const key1 = '56991f9c14msh000d620068e4c37p10e847jsn3bf59dbd255c';
-const key2 = '321f8ff9e0msh7c5090d3b1fd871p1054ebjsn2bdefb61939b';
+// const key1 = '56991f9c14msh000d620068e4c37p10e847jsn3bf59dbd255c';
+// const key2 = '321f8ff9e0msh7c5090d3b1fd871p1054ebjsn2bdefb61939b';
 const key3 = '8d06f4bde1msh3c15db9f2553d5bp10e026jsn75a446530be1';
 
 const Search = ({ city, setCity, selectCity }) => {

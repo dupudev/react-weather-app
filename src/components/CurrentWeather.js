@@ -91,6 +91,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                     height: '50px',
                   }}
                   src='./img/thermometer.svg'
+                  alt='thermometer'
                 />
               </div>
               <div className='weather-detail-text mt-2'>
@@ -114,6 +115,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                     height: '50px',
                   }}
                   src='./img/humidity.svg'
+                  alt='humidity'
                 />
               </div>
               <div className='weather-detail-text mt-2'>
@@ -137,6 +139,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                     height: '50px',
                   }}
                   src='./img/barometer.svg'
+                  alt='barometer'
                 />
               </div>
               <div className='weather-detail-text mt-2'>
@@ -160,6 +163,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                     height: '50px',
                   }}
                   src='./img/windsock.svg'
+                  alt='windsock'
                 />
               </div>
               <div className='weather-detail-text mt-2'>
@@ -183,6 +187,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                     height: '50px',
                   }}
                   src='./img/cloudy.svg'
+                  alt='cloudy'
                 />
               </div>
               <div className='weather-detail-text mt-2'>

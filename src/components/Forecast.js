@@ -35,6 +35,7 @@ const Forecast = ({ forecast }) => {
                     height: '100px',
                   }}
                   src={`./img/${item.weather[0].icon}.svg`}
+                  alt={item.weather[0].main}
                 />
                 <p className='text-capitalize'>{item.weather[0].main}</p>
                 <div>

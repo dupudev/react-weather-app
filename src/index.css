@@ -185,6 +185,7 @@ body {
 .forecast-item {
   min-width: 155px;
   padding: 16px;
+  transform: translateY(75px);
   opacity: 0;
   animation: forecast-item 0.75s ease-in-out 2.75s forwards;
 }
