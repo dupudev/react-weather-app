@@ -55,7 +55,9 @@ const Search = ({ city, selectCity }) => {
           onChange={selectOption} /// kao argument prima podatke iz opcije koju odaberemo sa liste (podatke odabranog grada tj, podatke koje smo fetchovali)
         />
       </div>
-      <TbRefresh className='refresh ' onClick={() => selectCity(city)} />
+      {city && (
+        <TbRefresh className='refresh ' onClick={() => selectCity(city)} />
+      )}
     </Container>
   );
 };
