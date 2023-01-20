@@ -257,7 +257,7 @@ body {
     position: absolute;
     font-size: 35px;
     font-weight: 500;
-    top: 0;
+    top: -7px;
     right: -20px;
     line-height: 0.5;
   }

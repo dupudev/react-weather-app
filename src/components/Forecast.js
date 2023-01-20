@@ -39,15 +39,15 @@ const Forecast = ({ forecast }) => {
                 />
                 <p className='text-capitalize'>{item.weather[0].main}</p>
                 <div>
-                  <p className='fs-1 m-0 position-relative'>
+                  <p className='fs-1 m-0 position-relative d-inline-block'>
                     {Math.round(item.main.temp)}
                     <span
                       style={{
                         position: 'absolute',
                         fontSize: '20px',
                         fontWeight: '500',
-                        top: '0',
-                        right: '24px',
+                        top: '-2px',
+                        right: '-17px',
                       }}
                     >
                       o
