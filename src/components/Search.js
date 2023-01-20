@@ -1,22 +1,22 @@
 import React from 'react';
 
 import Container from 'react-bootstrap/Container';
+import { TbRefresh } from 'react-icons/tb';
 
 import { AsyncPaginate } from 'react-select-async-paginate';
 
 // API Keys
 // const key1 = '56991f9c14msh000d620068e4c37p10e847jsn3bf59dbd255c';
-// const key2 = '321f8ff9e0msh7c5090d3b1fd871p1054ebjsn2bdefb61939b';
-const key3 = '8d06f4bde1msh3c15db9f2553d5bp10e026jsn75a446530be1';
+const key2 = '170be3b95dmsh21d932dfda4b070p1fd497jsnaad03c51f796';
 
-const Search = ({ city, setCity, selectCity }) => {
+const Search = ({ city, selectCity }) => {
   const loadOptions = (userInputValue) => {
     return fetch(
       `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?sort=-population&namePrefix=${userInputValue}`,
       {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': key3,
+          'X-RapidAPI-Key': key2,
           'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com',
         },
       }
@@ -41,13 +41,12 @@ const Search = ({ city, setCity, selectCity }) => {
   };
 
   const selectOption = (cityData) => {
-    setCity(cityData);
     selectCity(cityData);
   };
 
   return (
-    <Container fluid='md' className='pt-3'>
-      <div style={{ maxWidth: '500px' }} className='mx-auto'>
+    <Container fluid='md' className='pt-3 d-flex justify-content-center gap-3'>
+      <div style={{ maxWidth: '500px' }} className=' flex-grow-1 '>
         <AsyncPaginate
           placeholder='Search City'
           debounceTimeout={500}
@@ -56,6 +55,7 @@ const Search = ({ city, setCity, selectCity }) => {
           onChange={selectOption} /// kao argument prima podatke iz opcije koju odaberemo sa liste (podatke odabranog grada tj, podatke koje smo fetchovali)
         />
       </div>
+      <TbRefresh className='refresh ' onClick={() => selectCity(city)} />
     </Container>
   );
 };

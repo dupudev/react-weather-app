@@ -43,7 +43,7 @@ body {
 .weather-date {
   transform: translateX(-75px);
   opacity: 0;
-  animation: to-right 0.75s ease-in-out forwards;
+  animation: to-right 0.75s ease-in-out 0s forwards;
 }
 
 .weather-icon {
@@ -101,7 +101,7 @@ body {
 .weather-stepen {
   position: absolute;
   font-size: 65px;
-  font-weight: 600;
+  font-weight: 500;
   top: 0;
   right: -50px;
   line-height: 0.5;
@@ -113,35 +113,37 @@ body {
 .refresh {
   width: 40px;
   height: 40px;
-  margin-right: 70px;
-  transform: translateY(-75px);
-  opacity: 0;
-  animation: refresh 0.75s ease-in-out 0.9s forwards;
-}
-
-@keyframes refresh {
-  0% {
-    transform: translateY(-75px);
-    opacity: 0;
-  }
-  70% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  color: white;
 }
 
 .refresh:hover {
   cursor: pointer;
 }
 
-.weather-details {
+.animation {
+  transition: 0.3s ease-in-out;
+}
+.weather-detail {
   transform: translateX(75px);
   opacity: 0;
-  animation: to-left 0.75s ease-in-out 1.2s forwards;
 }
+
+.weather-detail:nth-child(1) {
+  animation: to-left 0.75s ease-in-out 0.9s forwards;
+}
+.weather-detail:nth-child(2) {
+  animation: to-left 0.75s ease-in-out 1.1s forwards;
+}
+.weather-detail:nth-child(3) {
+  animation: to-left 0.75s ease-in-out 1.3s forwards;
+}
+.weather-detail:nth-child(4) {
+  animation: to-left 0.75s ease-in-out 1.5s forwards;
+}
+.weather-detail:nth-child(5) {
+  animation: to-left 0.75s ease-in-out 1.8s forwards;
+}
+
 @keyframes to-left {
   0% {
     transform: translateX(75px);
@@ -187,8 +189,32 @@ body {
   padding: 16px;
   transform: translateY(75px);
   opacity: 0;
-  animation: forecast-item 0.75s ease-in-out 2.75s forwards;
 }
+.forecast-item:nth-child(1) {
+  animation: forecast-item 0.75s ease-in-out 2.2s forwards;
+}
+.forecast-item:nth-child(2) {
+  animation: forecast-item 0.75s ease-in-out 2.4s forwards;
+}
+.forecast-item:nth-child(3) {
+  animation: forecast-item 0.75s ease-in-out 2.6s forwards;
+}
+.forecast-item:nth-child(4) {
+  animation: forecast-item 0.75s ease-in-out 2.8s forwards;
+}
+.forecast-item:nth-child(5) {
+  animation: forecast-item 0.75s ease-in-out 3s forwards;
+}
+.forecast-item:nth-child(6) {
+  animation: forecast-item 0.75s ease-in-out 3.2s forwards;
+}
+.forecast-item:nth-child(7) {
+  animation: forecast-item 0.75s ease-in-out 3.4s forwards;
+}
+.forecast-item:nth-child(8) {
+  animation: forecast-item 0.75s ease-in-out 3.6s forwards;
+}
+
 @keyframes forecast-item {
   0% {
     transform: translateY(75px);
@@ -211,9 +237,7 @@ body {
   .weather-city {
     font-size: 24px;
   }
-  .refresh {
-    margin-right: 20px;
-  }
+
   .weather-date {
     font-size: 14px;
   }
@@ -250,23 +274,20 @@ body {
 }
 
 /* mali spiner */
-.spinner,
-.errorIcon {
-  width: 25px;
-  height: 25px;
-  position: relative;
-  display: inline-block;
-  margin-left: 15px;
+.spinner {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
 }
 @media (max-width: 480px) {
   .spinner {
     width: 20px;
     height: 20px;
     padding-top: 5px;
-  }
-  .errorIcon {
-    width: 20px;
-    height: 20px;
   }
 }
 
@@ -279,8 +300,8 @@ body {
 
 .spinner .dot::after {
   content: '';
-  width: 3px;
-  height: 3px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background-color: rgb(200, 200, 200);
 }

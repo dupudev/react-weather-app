@@ -4,8 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 
-import { TbRefresh } from 'react-icons/tb';
-
 const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
   const month = [
     'January',
@@ -26,6 +24,15 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
 
   return (
     <Container fluid='md' className='pb-3 '>
+      {!imageLoaded && (
+        <div className='spinner'>
+          <div className='dot'></div>
+          <div className='dot'></div>
+          <div className='dot'></div>
+          <div className='dot'></div>
+          <div className='dot'></div>
+        </div>
+      )}
       <div
         style={{ color: 'white' }}
         className='current-weather overflow-hidden mt-5 mb-4 pb-4'
@@ -35,18 +42,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
             <h2 className='weather-city d-inline-block m-0'>
               {city.name}, {weatherCity.sys.country}
             </h2>
-            {!imageLoaded && (
-              <div className='spinner'>
-                <div className='dot'></div>
-                <div className='dot'></div>
-                <div className='dot'></div>
-                <div className='dot'></div>
-                <div className='dot'></div>
-              </div>
-            )}
           </div>
-
-          <TbRefresh className='refresh' onClick={() => refreshWeather(city)} />
         </div>
         <p className='weather-date mb-0'>
           {month[date.getMonth()]} {date.getDate()}, {date.getFullYear()}
@@ -65,7 +61,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
                 </p>
               </div>
               <div className='ms-3'>
-                <p className='mb-2 mt-3 weather-temp position-relative'>
+                <p className='mb-2 mt-3 weather-temp position-relative text-center'>
                   {Math.round(weatherCity.main.temp)}
                   <span className='weather-stepen'>o</span>
                 </p>
@@ -83,7 +79,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
             className='weather-details d-flex flex-wrap flex-md-column gy-3'
           >
             {/* Feels like */}
-            <Col className='d-flex'>
+            <Col className='weather-detail d-flex'>
               <div className='weather-detail-img'>
                 <img
                   style={{
@@ -107,7 +103,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
             </Col>
 
             {/* Humidity */}
-            <Col className='d-flex'>
+            <Col className='weather-detail d-flex'>
               <div className='weather-detail-img'>
                 <img
                   style={{
@@ -131,7 +127,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
             </Col>
 
             {/* Atmospheric pressure */}
-            <Col className='d-flex'>
+            <Col className='weather-detail d-flex'>
               <div className='weather-detail-img'>
                 <img
                   style={{
@@ -155,7 +151,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
             </Col>
 
             {/* Wind speed */}
-            <Col className='d-flex'>
+            <Col className='weather-detail d-flex'>
               <div className='weather-detail-img'>
                 <img
                   style={{
@@ -179,7 +175,7 @@ const CurrentWeather = ({ city, weatherCity, imageLoaded, refreshWeather }) => {
             </Col>
 
             {/* Cloudiness */}
-            <Col className='d-flex'>
+            <Col className='weather-detail d-flex'>
               <div className='weather-detail-img'>
                 <img
                   style={{
