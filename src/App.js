@@ -115,6 +115,7 @@ const App = () => {
     setLoadCount((prev) => ++prev);
     setLoading(true);
     setImageLoaded(false);
+    setLocationRejected(false);
 
     const animations = document.getAnimations();
     animations.forEach((animations) => {
@@ -129,6 +130,7 @@ const App = () => {
     )
       .then((response) => response.json())
       .then((weatherJson) => {
+        setCity(cityData);
         fetch(
           `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${cityData.name}`,
           {
@@ -147,6 +149,8 @@ const App = () => {
             backgroundImage.src = backgroundUrl;
             backgroundImage.onload = () => {
               app.current.style.backgroundImage = `linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3)), url(${backgroundUrl})`;
+              setLoading(false);
+              setBackgroundLoaded(true);
 
               fetch(
                 `https://api.openweathermap.org/data/2.5/forecast?cnt=8&units=metric&lat=${cityData.value.latitude}&lon=${cityData.value.longitude}&appid=dbd21099bf102ac8bb8725685c1ac9af`
@@ -155,16 +159,12 @@ const App = () => {
                 .then((forecastJson) => {
                   setForecast(forecastJson);
                   setWeatherCity(weatherJson);
-                  setBackgroundLoaded(true);
-                  setLocationRejected(false);
-                  setLoading(false);
-                  setCity(cityData);
+                  setImageLoaded(true);
 
                   setTimeout(() => {
                     animations.forEach((animation) => {
                       animation.cancel();
                       animation.reverse();
-                      setImageLoaded(true);
                     });
                   }, 1000);
                 })
