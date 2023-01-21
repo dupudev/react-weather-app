@@ -8,7 +8,7 @@ Weather app made with React and React-Bootstrap. Application will automatically 
 
 ## Technologies
 
-[![React][react.js]][react-url] <br>[![Bootstrap][bootstrap.com]][bootstrap-url]
+1.[![React][react.js]][react-url] <br/> 2.[![Bootstrap][bootstrap.com]][bootstrap-url]
 
 ## Frameworks and Libraries
 
