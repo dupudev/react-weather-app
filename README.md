@@ -11,10 +11,8 @@ Weather app made with React and React-Bootstrap. Application will automatically 
 1. React
 2. [React-Bootstrap](https://react-bootstrap.github.io)
 3. [React-Icons](https://react-icons.github.io/react-icons/)
-
 4. [React-select-async-paginate](https://www.npmjs.com/package/react-select-async-paginate)
 5. [React-use-draggable-scroll](https://www.npmjs.com/package/react-use-draggable-scroll)
-
 6. [Weather Icons](https://bas.dev/work/meteocons)
 
 ## APIs
