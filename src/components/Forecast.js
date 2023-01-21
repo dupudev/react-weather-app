@@ -15,7 +15,7 @@ const Forecast = ({ forecast }) => {
       className='forecast overflow-hidden'
       style={{
         width: '100%',
-        marginTop: '12px',
+        marginTop: '10px',
       }}
     >
       <Container fluid='md'>
