@@ -4,8 +4,8 @@ import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
 
 // API Keys
-// const key1 = '56991f9c14msh000d620068e4c37p10e847jsn3bf59dbd255c';
-const key2 = '170be3b95dmsh21d932dfda4b070p1fd497jsnaad03c51f796';
+const key1 = '56991f9c14msh000d620068e4c37p10e847jsn3bf59dbd255c';
+// const key2 = '170be3b95dmsh21d932dfda4b070p1fd497jsnaad03c51f796';
 
 const App = () => {
   const app = useRef();
@@ -76,7 +76,7 @@ const App = () => {
           {
             method: 'GET',
             headers: {
-              'X-RapidAPI-Key': key2,
+              'X-RapidAPI-Key': key1,
               'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com',
             },
           }
@@ -136,7 +136,7 @@ const App = () => {
           {
             method: 'GET',
             headers: {
-              'X-RapidAPI-Key': key2,
+              'X-RapidAPI-Key': key1,
               'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com',
             },
           }
