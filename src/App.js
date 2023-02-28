@@ -72,20 +72,22 @@ const App = () => {
         });
 
         fetch(
-          `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${resJson.name}`,
+          `https://duckduckgo-image-search.p.rapidapi.com/search/image?q=${resJson.name}`,
           {
             method: 'GET',
             headers: {
               'X-RapidAPI-Key': key1,
-              'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com',
+              'X-RapidAPI-Host': 'duckduckgo-image-search.p.rapidapi.com',
             },
           }
         )
           .then((response) => response.json())
           .then((resJson) => {
+            console.log(resJson);
             const backgroundUrl =
-              resJson.value[Math.floor(Math.random() * resJson.value.length)]
-                .contentUrl;
+              resJson.results[
+                Math.round(Math.random() * resJson.results.length)
+              ].image;
             backgroundImage.src = backgroundUrl;
             backgroundImage.onload = () => {
               app.current.style.backgroundImage = `linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3)), url(${backgroundUrl})`;
@@ -132,20 +134,22 @@ const App = () => {
       .then((weatherJson) => {
         setCity(cityData);
         fetch(
-          `https://bing-image-search1.p.rapidapi.com/images/search?count=5&q=${cityData.name}`,
+          `https://duckduckgo-image-search.p.rapidapi.com/search/image?q=${cityData.name}`,
           {
             method: 'GET',
             headers: {
               'X-RapidAPI-Key': key1,
-              'X-RapidAPI-Host': 'bing-image-search1.p.rapidapi.com',
+              'X-RapidAPI-Host': 'duckduckgo-image-search.p.rapidapi.com',
             },
           }
         )
           .then((response) => response.json())
           .then((resJson) => {
+            console.log(resJson);
             const backgroundUrl =
-              resJson.value[Math.floor(Math.random() * resJson.value.length)]
-                .contentUrl;
+              resJson.results[
+                Math.round(Math.random() * resJson.results.length)
+              ].image;
             backgroundImage.src = backgroundUrl;
             backgroundImage.onload = () => {
               app.current.style.backgroundImage = `linear-gradient(rgba(32,32,32, 0.9), rgba(55,55,55,0.3)), url(${backgroundUrl})`;
